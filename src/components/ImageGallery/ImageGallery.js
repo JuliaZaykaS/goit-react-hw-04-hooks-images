@@ -9,8 +9,8 @@ export default function ImageGallery({ images, onImgClick }) {
         {images.map(item => (
           <ImageGalleryItem
             key={item.id}
-            url={item.webformatURL}
-            name={item.user}
+            url={item.src.original}
+            name={item.photographer}
             onClickImg={onImgClick}
           />
         ))}
@@ -18,6 +18,22 @@ export default function ImageGallery({ images, onImgClick }) {
     </>
   );
 }
+// export default function ImageGallery({ images, onImgClick }) {
+//   return (
+//     <>
+//       <ul className={s.ImageGallery}>
+//         {images.map(item => (
+//           <ImageGalleryItem
+//             key={item.id}
+//             url={item.webformatURL}
+//             name={item.user}
+//             onClickImg={onImgClick}
+//           />
+//         ))}
+//       </ul>
+//     </>
+//   );
+// }
 
 ImageGallery.propTypes = {
   images: PropTypes.arrayOf(PropTypes.object),
