@@ -5,12 +5,10 @@ import Modal from "../Modal/Modal";
 import ModalImage from "../ImageGalleryItem/ImageGalleryModal";
 import s from "./App.module.css";
 import ImagesAPIService from "../services/images-api";
-// import PexelsAPIService from "../services/pexels-api";
 import Loader from "../Loader/Loader";
 import Button from "../Button/Button";
 
 const imagesAPIService = new ImagesAPIService();
-// const pexelsAPIService = new PexelsAPIService();
 
 const Status = {
   IDLE: "idle",
@@ -26,103 +24,8 @@ function App() {
   const [error, setError] = useState(null);
   const [images, setImages] = useState([]);
   const [status, setStatus] = useState(Status.IDLE);
-  // const [page, setPage] = useState(pexelsAPIService.page);
   const [page, setPage] = useState(1);
-  // console.log(page);
 
-  // useEffect(() => {
-  //   // setImages([]);
-  //   if (searchValue === "") return;
-  //   // console.log(page);
-  //   //   // imagesAPIService.resetPage();
-  //   // pexelsAPIService.resetPage();
-
-  //   //   // imagesAPIService.query = searchValue;
-  //   pexelsAPIService.query = searchValue;
-  //   // setImages([]);
-  //   // setPage(pexelsAPIService.page);
-  //   // console.log(page);
-  //   // pexelsAPIService.incrementPage();
-  //   //   setStatus(Status.PENDING);
-
-  //   const loadImages = () => {
-  //     setStatus(Status.PENDING);
-
-  //     //   // imagesAPIService
-  //     pexelsAPIService
-  //       .fetchImages()
-  //       .then((result) => {
-  //         //       // if (result.hits.length !== 0) {
-  //         if (result.photos.length !== 0) {
-  //           //         // setImages([...images, ...result.hits]);
-  //           //         // setImages([...images, ...result.photos]);
-  //           //         // setImages(prevImages=>[...prevImages, ...result.hits]);
-  //           setImages((prevImages) => [...prevImages, ...result.photos]);
-  //           setStatus(Status.RESOLVED);
-  //           // pexelsAPIService.incrementPage();
-  //           //       } else {
-  //           //         setStatus(Status.RESOLVED);
-  //           //       }
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         setError(error);
-  //         setStatus(Status.REJECTED);
-  //         //       // this.setState({ error, status: Status.REJECTED }))
-  //       });
-  //     // .finally(() => {
-  //     //       window.scrollTo({
-  //     //         top: document.documentElement.scrollHeight,
-  //     //         behavior: "smooth",
-  //     //       });
-  //     //     });
-  //   };
-  //   //   // const loadImages = (value) => {
-  //   //   // this.setState({ status: Status.PENDING });
-  //   //   // imagesAPIService.query = value;
-
-  //   //   // imagesAPIService
-  //   //   //   .fetchImages()
-  //   //   //   .then((result) => {
-  //   //   //     // result.hits.length !== 0
-  //   //   //     //   ?
-
-  //   //   //     //     setImages([...images, ...result.hits])
-  //   //   //     // setStatus(Status.RESOLVED)
-
-  //   //   //     //   // this.setState({
-  //   //   //     //   //     images: [...this.state.images, ...images.hits],
-  //   //   //     //   //     status: Status.RESOLVED,
-  //   //   //     //     // })
-  //   //   //     //   // : this.setState({ status: Status.RESOLVED });
-  //   //   //     //   :  (setStatus(Status.RESOLVED));
-  //   //   //     if (result.hits.length !== 0) {
-  //   //   //       setImages([...images, ...result.hits]);
-  //   //   //       setStatus(Status.RESOLVED);
-  //   //   //     } else {
-  //   //   //       setStatus(Status.RESOLVED);
-  //   //   //     }
-  //   //   //   })
-  //   //   //   .catch((error) => {
-  //   //   //     setError(error);
-  //   //   //     setStatus(Status.REJECTED);
-  //   //   //     // this.setState({ error, status: Status.REJECTED }))
-  //   //   //   })
-  //   //   //   .finally(() => {
-  //   //   //     window.scrollTo({
-  //   //   //       top: document.documentElement.scrollHeight,
-  //   //   //       behavior: "smooth",
-  //   //   //     });
-  //   //   //   });
-  //   // // };
-
-  //   //   // loadImages(searchValue);
-  //   loadImages();
-  //   // console.log(pexelsAPIService.page);
-  //   // pexelsAPIService.incrementPage();
-  //   // return loadImages;
-
-  // }, [searchValue, page]);
   useEffect(() => {
     if (searchValue === "") return;
     imagesAPIService.query = searchValue;
@@ -152,158 +55,33 @@ function App() {
 
     loadImages();
   }, [searchValue, page]);
-  // useEffect(() => {
-  //   // setImages([]);
-  //   if (searchValue === '') return;
-  //   imagesAPIService.resetPage();
-
-  //   imagesAPIService.query = searchValue;
-  //   setStatus(Status.PENDING);
-  //   // const loadImages = (value) => {
-  //   // this.setState({ status: Status.PENDING });
-  //   // imagesAPIService.query = value;
-
-  //   imagesAPIService
-  //     .fetchImages()
-  //     .then((result) => {
-  //       // result.hits.length !== 0
-  //       //   ?
-
-  //       //     setImages([...images, ...result.hits])
-  //       // setStatus(Status.RESOLVED)
-
-  //       //   // this.setState({
-  //       //   //     images: [...this.state.images, ...images.hits],
-  //       //   //     status: Status.RESOLVED,
-  //       //     // })
-  //       //   // : this.setState({ status: Status.RESOLVED });
-  //       //   :  (setStatus(Status.RESOLVED));
-  //       if (result.hits.length !== 0) {
-  //         setImages([...images, ...result.hits]);
-  //         setStatus(Status.RESOLVED);
-  //       } else {
-  //         setStatus(Status.RESOLVED);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       setError(error);
-  //       setStatus(Status.REJECTED);
-  //       // this.setState({ error, status: Status.REJECTED }))
-  //     })
-  //     .finally(() => {
-  //       window.scrollTo({
-  //         top: document.documentElement.scrollHeight,
-  //         behavior: "smooth",
-  //       });
-  //     });
-  // // };
-
-  //   // loadImages(searchValue);
-  // // eslint-disable-next-line no-use-before-define
-  // },[images, searchValue])
-  // componentDidUpdate(prevProps, prevState) {
-  //   const prevName = prevState.searchValue;
-  //   const nextName = this.state.searchValue;
-
-  //   if (prevName !== nextName) {
-  //     this.setState({ images: [] });
-  //     imagesAPIService.resetPage();
-  //     this.loadImages(nextName);
-  //   }
-  // }
 
   const getSearchValue = (searchValue) => {
     setSearchValue(searchValue);
     setImages([]);
-    // pexelsAPIService.resetPage();
     imagesAPIService.resetPage();
     setPage(1);
-    // this.setState({ searchValue });
   };
 
   const clearModalData = () => {
     setLargeImg({});
-    // this.setState({ largeImg: {} });
   };
 
   const toggleModal = (e) => {
     setShowModal((showModal) => !showModal);
-    // this.setState(({ showModal }) => ({
-    //   showModal: !showModal,
-    // }));
   };
 
   const loadMoreImages = () => {
-    // imagesAPIService.incrementPage();
-    // console.log(pexelsAPIService.page);
-    // pexelsAPIService.incrementPage();
     imagesAPIService.incrementPage();
-    // setPage(pexelsAPIService.page);
     setPage(imagesAPIService.page);
-    // console.log(pexelsAPIService.page);
-    // setPage(pexelsAPIService.incrementPage());
-    // setPage(page=>pexelsAPIService.incrementPage());
-    // console.dir(pexelsAPIService.incrementPage());
-
-    // setPage(page => page + 1);
-    // setStatus(Status.PENDING);
-    // console.log(pexelsAPIService.page);
-
-    // loadImages(searchValue);
-    // loadImages();
-    // this.loadImages(this.state.searchValue);
   };
 
   const openModalImg = (e) => {
     const largeImage = images.find((img) => img.webformatURL === e.target.src);
-    // const largeImage = images.find((img) => img.src.original === e.target.src);
     setLargeImg(largeImage);
-    // this.setState({ largeImg: largeImage });
     toggleModal();
   };
 
-  // const loadImages = (value) => {
-  //   setStatus(Status.PENDING);
-  //   // this.setState({ status: Status.PENDING });
-  //   imagesAPIService.query = value;
-
-  //   imagesAPIService
-  //     .fetchImages()
-  //     .then((result) => {
-  //       // result.hits.length !== 0
-  //       //   ?
-
-  //       //     setImages([...images, ...result.hits])
-  //       // setStatus(Status.RESOLVED)
-
-  //       //   // this.setState({
-  //       //   //     images: [...this.state.images, ...images.hits],
-  //       //   //     status: Status.RESOLVED,
-  //       //     // })
-  //       //   // : this.setState({ status: Status.RESOLVED });
-  //       //   :  (setStatus(Status.RESOLVED));
-  //       if (result.hits.length !== 0) {
-  //         setImages([...images, ...result.hits]);
-  //         setStatus(Status.RESOLVED);
-  //       } else {
-  //         setStatus(Status.RESOLVED);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       setError(error);
-  //       setStatus(Status.REJECTED);
-  //       // this.setState({ error, status: Status.REJECTED }))
-  //     })
-  //     .finally(() => {
-  //       window.scrollTo({
-  //         top: document.documentElement.scrollHeight,
-  //         behavior: "smooth",
-  //       });
-  //     });
-  // };
-
-  // render() {
-  // const { largeImg, searchValue, showModal, images, status } = this.state;
   return (
     <div className={s.App}>
       <Searchbar onSubmit={getSearchValue} />
@@ -314,21 +92,15 @@ function App() {
       )}
       <ImageGallery onImgClick={openModalImg} images={images} />
       {status === Status.PENDING && <Loader />}
-      {images.length !== 0 && (
-        <Button onClickBtn={loadMoreImages} />
-        // <Button onClickBtn={() => loadMoreImages(searchValue)} />
-        // <Button  />
-      )}
+      {images.length !== 0 && <Button onClickBtn={loadMoreImages} />}
 
       {showModal && (
         <Modal onClose={toggleModal} clearModal={clearModalData}>
           <ModalImage url={largeImg.largeImageURL} name={largeImg.user} />
-          {/* <ModalImage url={largeImg.src.large} name={largeImg.photographer} /> */}
         </Modal>
       )}
     </div>
   );
-  // }
 }
 
 export default App;
