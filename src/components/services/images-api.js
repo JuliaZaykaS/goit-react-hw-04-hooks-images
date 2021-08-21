@@ -20,7 +20,7 @@ export default class ImagesAPIService {
         );
       })
       .then(images => {
-        this.incrementPage();
+        // this.incrementPage();
         return images;
       });
   }

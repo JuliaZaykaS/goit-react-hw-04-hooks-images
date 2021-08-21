@@ -4,13 +4,13 @@ import ImageGallery from "../ImageGallery/ImageGallery";
 import Modal from "../Modal/Modal";
 import ModalImage from "../ImageGalleryItem/ImageGalleryModal";
 import s from "./App.module.css";
-// import ImagesAPIService from "../services/images-api";
-import PexelsAPIService from "../services/pexels-api";
+import ImagesAPIService from "../services/images-api";
+// import PexelsAPIService from "../services/pexels-api";
 import Loader from "../Loader/Loader";
 import Button from "../Button/Button";
 
-// const imagesAPIService = new ImagesAPIService();
-const pexelsAPIService = new PexelsAPIService();
+const imagesAPIService = new ImagesAPIService();
+// const pexelsAPIService = new PexelsAPIService();
 
 const Status = {
   IDLE: "idle",
@@ -18,6 +18,7 @@ const Status = {
   RESOLVED: "resolved",
   REJECTED: "rejected",
 };
+
 function App() {
   const [searchValue, setSearchValue] = useState("");
   const [largeImg, setLargeImg] = useState({});
@@ -29,99 +30,127 @@ function App() {
   const [page, setPage] = useState(1);
   // console.log(page);
 
-  useEffect(() => {
-    // setImages([]);
-    if (searchValue === "") return;
-    // console.log(page);
-    //   // imagesAPIService.resetPage();
-    // pexelsAPIService.resetPage();
+  // useEffect(() => {
+  //   // setImages([]);
+  //   if (searchValue === "") return;
+  //   // console.log(page);
+  //   //   // imagesAPIService.resetPage();
+  //   // pexelsAPIService.resetPage();
 
-    //   // imagesAPIService.query = searchValue;
-    pexelsAPIService.query = searchValue;
-    // setImages([]);
-    // setPage(pexelsAPIService.page);
-    // console.log(page);
-    // pexelsAPIService.incrementPage();
-    //   setStatus(Status.PENDING);
+  //   //   // imagesAPIService.query = searchValue;
+  //   pexelsAPIService.query = searchValue;
+  //   // setImages([]);
+  //   // setPage(pexelsAPIService.page);
+  //   // console.log(page);
+  //   // pexelsAPIService.incrementPage();
+  //   //   setStatus(Status.PENDING);
+
+  //   const loadImages = () => {
+  //     setStatus(Status.PENDING);
+
+  //     //   // imagesAPIService
+  //     pexelsAPIService
+  //       .fetchImages()
+  //       .then((result) => {
+  //         //       // if (result.hits.length !== 0) {
+  //         if (result.photos.length !== 0) {
+  //           //         // setImages([...images, ...result.hits]);
+  //           //         // setImages([...images, ...result.photos]);
+  //           //         // setImages(prevImages=>[...prevImages, ...result.hits]);
+  //           setImages((prevImages) => [...prevImages, ...result.photos]);
+  //           setStatus(Status.RESOLVED);
+  //           // pexelsAPIService.incrementPage();
+  //           //       } else {
+  //           //         setStatus(Status.RESOLVED);
+  //           //       }
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         setError(error);
+  //         setStatus(Status.REJECTED);
+  //         //       // this.setState({ error, status: Status.REJECTED }))
+  //       });
+  //     // .finally(() => {
+  //     //       window.scrollTo({
+  //     //         top: document.documentElement.scrollHeight,
+  //     //         behavior: "smooth",
+  //     //       });
+  //     //     });
+  //   };
+  //   //   // const loadImages = (value) => {
+  //   //   // this.setState({ status: Status.PENDING });
+  //   //   // imagesAPIService.query = value;
+
+  //   //   // imagesAPIService
+  //   //   //   .fetchImages()
+  //   //   //   .then((result) => {
+  //   //   //     // result.hits.length !== 0
+  //   //   //     //   ?
+
+  //   //   //     //     setImages([...images, ...result.hits])
+  //   //   //     // setStatus(Status.RESOLVED)
+
+  //   //   //     //   // this.setState({
+  //   //   //     //   //     images: [...this.state.images, ...images.hits],
+  //   //   //     //   //     status: Status.RESOLVED,
+  //   //   //     //     // })
+  //   //   //     //   // : this.setState({ status: Status.RESOLVED });
+  //   //   //     //   :  (setStatus(Status.RESOLVED));
+  //   //   //     if (result.hits.length !== 0) {
+  //   //   //       setImages([...images, ...result.hits]);
+  //   //   //       setStatus(Status.RESOLVED);
+  //   //   //     } else {
+  //   //   //       setStatus(Status.RESOLVED);
+  //   //   //     }
+  //   //   //   })
+  //   //   //   .catch((error) => {
+  //   //   //     setError(error);
+  //   //   //     setStatus(Status.REJECTED);
+  //   //   //     // this.setState({ error, status: Status.REJECTED }))
+  //   //   //   })
+  //   //   //   .finally(() => {
+  //   //   //     window.scrollTo({
+  //   //   //       top: document.documentElement.scrollHeight,
+  //   //   //       behavior: "smooth",
+  //   //   //     });
+  //   //   //   });
+  //   // // };
+
+  //   //   // loadImages(searchValue);
+  //   loadImages();
+  //   // console.log(pexelsAPIService.page);
+  //   // pexelsAPIService.incrementPage();
+  //   // return loadImages;
+
+  // }, [searchValue, page]);
+  useEffect(() => {
+    if (searchValue === "") return;
+    imagesAPIService.query = searchValue;
 
     const loadImages = () => {
       setStatus(Status.PENDING);
 
-      //   // imagesAPIService
-      pexelsAPIService
+      imagesAPIService
         .fetchImages()
         .then((result) => {
-          //       // if (result.hits.length !== 0) {
-          if (result.photos.length !== 0) {
-            //         // setImages([...images, ...result.hits]);
-            //         // setImages([...images, ...result.photos]);
-            //         // setImages(prevImages=>[...prevImages, ...result.hits]);
-            setImages((prevImages) => [...prevImages, ...result.photos]);
+          if (result.hits.length !== 0) {
+            setImages((prevImages) => [...prevImages, ...result.hits]);
             setStatus(Status.RESOLVED);
-            // pexelsAPIService.incrementPage();
-            //       } else {
-            //         setStatus(Status.RESOLVED);
-            //       }
           }
         })
         .catch((error) => {
           setError(error);
           setStatus(Status.REJECTED);
-          //       // this.setState({ error, status: Status.REJECTED }))
+        })
+        .finally(() => {
+          window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: "smooth",
+          });
         });
-      // .finally(() => {
-      //       window.scrollTo({
-      //         top: document.documentElement.scrollHeight,
-      //         behavior: "smooth",
-      //       });
-      //     });
     };
-    //   // const loadImages = (value) => {
-    //   // this.setState({ status: Status.PENDING });
-    //   // imagesAPIService.query = value;
 
-    //   // imagesAPIService
-    //   //   .fetchImages()
-    //   //   .then((result) => {
-    //   //     // result.hits.length !== 0
-    //   //     //   ?
-
-    //   //     //     setImages([...images, ...result.hits])
-    //   //     // setStatus(Status.RESOLVED)
-
-    //   //     //   // this.setState({
-    //   //     //   //     images: [...this.state.images, ...images.hits],
-    //   //     //   //     status: Status.RESOLVED,
-    //   //     //     // })
-    //   //     //   // : this.setState({ status: Status.RESOLVED });
-    //   //     //   :  (setStatus(Status.RESOLVED));
-    //   //     if (result.hits.length !== 0) {
-    //   //       setImages([...images, ...result.hits]);
-    //   //       setStatus(Status.RESOLVED);
-    //   //     } else {
-    //   //       setStatus(Status.RESOLVED);
-    //   //     }
-    //   //   })
-    //   //   .catch((error) => {
-    //   //     setError(error);
-    //   //     setStatus(Status.REJECTED);
-    //   //     // this.setState({ error, status: Status.REJECTED }))
-    //   //   })
-    //   //   .finally(() => {
-    //   //     window.scrollTo({
-    //   //       top: document.documentElement.scrollHeight,
-    //   //       behavior: "smooth",
-    //   //     });
-    //   //   });
-    // // };
-
-    //   // loadImages(searchValue);
     loadImages();
-    // console.log(pexelsAPIService.page);
-    // pexelsAPIService.incrementPage();
-    // return loadImages;
-
-
   }, [searchValue, page]);
   // useEffect(() => {
   //   // setImages([]);
@@ -186,7 +215,8 @@ function App() {
   const getSearchValue = (searchValue) => {
     setSearchValue(searchValue);
     setImages([]);
-    pexelsAPIService.resetPage();
+    // pexelsAPIService.resetPage();
+    imagesAPIService.resetPage();
     setPage(1);
     // this.setState({ searchValue });
   };
@@ -206,8 +236,10 @@ function App() {
   const loadMoreImages = () => {
     // imagesAPIService.incrementPage();
     // console.log(pexelsAPIService.page);
-    pexelsAPIService.incrementPage();
-    setPage(pexelsAPIService.page);
+    // pexelsAPIService.incrementPage();
+    imagesAPIService.incrementPage();
+    // setPage(pexelsAPIService.page);
+    setPage(imagesAPIService.page);
     // console.log(pexelsAPIService.page);
     // setPage(pexelsAPIService.incrementPage());
     // setPage(page=>pexelsAPIService.incrementPage());
@@ -223,8 +255,8 @@ function App() {
   };
 
   const openModalImg = (e) => {
-    // const largeImage = images.find((img) => img.webformatURL === e.target.src);
-    const largeImage = images.find((img) => img.src.original === e.target.src);
+    const largeImage = images.find((img) => img.webformatURL === e.target.src);
+    // const largeImage = images.find((img) => img.src.original === e.target.src);
     setLargeImg(largeImage);
     // this.setState({ largeImg: largeImage });
     toggleModal();
@@ -290,8 +322,8 @@ function App() {
 
       {showModal && (
         <Modal onClose={toggleModal} clearModal={clearModalData}>
-          {/* <ModalImage url={largeImg.largeImageURL} name={largeImg.user} /> */}
-          <ModalImage url={largeImg.src.large} name={largeImg.photographer} />
+          <ModalImage url={largeImg.largeImageURL} name={largeImg.user} />
+          {/* <ModalImage url={largeImg.src.large} name={largeImg.photographer} /> */}
         </Modal>
       )}
     </div>
