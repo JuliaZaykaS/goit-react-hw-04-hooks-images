@@ -29,6 +29,7 @@ function App() {
   useEffect(() => {
     if (searchValue === "") return;
     imagesAPIService.query = searchValue;
+    console.log(page);
 
     const loadImages = () => {
       setStatus(Status.PENDING);
