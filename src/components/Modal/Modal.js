@@ -14,8 +14,8 @@ export default function Modal({ onClose, clearModal, children }) {
 
   const onEscClick = (e) => {
     if (e.code === "Escape") {
-      this.props.onClose();
-      this.props.clearModal();
+      onClose();
+      clearModal();
     }
   };
 
