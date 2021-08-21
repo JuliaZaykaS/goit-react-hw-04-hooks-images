@@ -25,18 +25,22 @@ function App() {
   const [error, setError] = useState(null);
   const [images, setImages] = useState([]);
   const [status, setStatus] = useState(Status.IDLE);
-  const [page, setPage] = useState(pexelsAPIService.page);
+  // const [page, setPage] = useState(pexelsAPIService.page);
+  const [page, setPage] = useState(1);
   // console.log(page);
 
   useEffect(() => {
-      setImages([]);
+    // setImages([]);
     if (searchValue === "") return;
+    // console.log(page);
     //   // imagesAPIService.resetPage();
-    pexelsAPIService.resetPage();
+    // pexelsAPIService.resetPage();
 
     //   // imagesAPIService.query = searchValue;
     pexelsAPIService.query = searchValue;
-    console.log(page);
+    // setImages([]);
+    // setPage(pexelsAPIService.page);
+    // console.log(page);
     // pexelsAPIService.incrementPage();
     //   setStatus(Status.PENDING);
 
@@ -113,7 +117,7 @@ function App() {
 
     //   // loadImages(searchValue);
     loadImages();
-    console.log(pexelsAPIService.page);
+    // console.log(pexelsAPIService.page);
     // pexelsAPIService.incrementPage();
     // return loadImages;
 
@@ -181,6 +185,9 @@ function App() {
 
   const getSearchValue = (searchValue) => {
     setSearchValue(searchValue);
+    setImages([]);
+    pexelsAPIService.resetPage();
+    setPage(1);
     // this.setState({ searchValue });
   };
 
@@ -198,9 +205,15 @@ function App() {
 
   const loadMoreImages = () => {
     // imagesAPIService.incrementPage();
-    console.log(pexelsAPIService.page);
-    // pexelsAPIService.incrementPage();
-    setPage(pexelsAPIService.incrementPage());
+    // console.log(pexelsAPIService.page);
+    pexelsAPIService.incrementPage();
+    setPage(pexelsAPIService.page);
+    // console.log(pexelsAPIService.page);
+    // setPage(pexelsAPIService.incrementPage());
+    // setPage(page=>pexelsAPIService.incrementPage());
+    // console.dir(pexelsAPIService.incrementPage());
+
+    // setPage(page => page + 1);
     // setStatus(Status.PENDING);
     // console.log(pexelsAPIService.page);
 

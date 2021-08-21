@@ -35,7 +35,7 @@ export default class PexelsAPIService {
         );
       })
       .then(images => {
-        this.incrementPage();
+        // this.incrementPage();
         return images;
       });
   }
